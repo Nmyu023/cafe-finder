@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- カフェカップ -->
+  <rect x="8" y="10" width="14" height="14" rx="2" fill="#8B5A2B"/>
+  <!-- カップの内側 -->
+  <rect x="10" y="12" width="10" height="4" rx="1" fill="#FFF"/>
+  <!-- 取っ手 -->
+  <path d="M22 14 a4 6 0 0 1 0 6" stroke="#8B5A2B" stroke-width="2" fill="none"/>
+  <!-- 蒸気 -->
+  <path d="M12 8 q2 -2 0 -4" stroke="#C8C8C8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M16 7 q2 -2 0 -4" stroke="#C8C8C8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M20 8 q2 -2 0 -4" stroke="#C8C8C8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>
