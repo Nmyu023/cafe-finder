@@ -3375,7 +3375,7 @@ export default function CafeFinderV8(){
                          display:"flex",alignItems:"center",justifyContent:"center"}}>
               <i className="fa-solid fa-mug-hot" style={{fontSize:42,color:"var(--teal)"}}></i>
               <span style={{position:"absolute",color:"var(--base)",fontSize:18,fontWeight:800,
-                           top:"56%",left:"38%",transform:"translate(-50%, -50%)",
+                           top:"60%",left:"43%",transform:"translate(-50%, -50%)",
                            fontFamily:"'Noto Serif JP',serif"}}>N</span>
             </div>
             <div style={{flex:1}}>
