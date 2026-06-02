@@ -31,6 +31,7 @@ if (!file_exists($sqliteDb)) {
 }
 
 // Set temporary configuration environment variables for Vercel
+putenv("APP_DEBUG=true");
 putenv("APP_KEY=base64:qWYGUAk5tcIeOfQIkpMUglLXmpN/qE6q8AMZ/M5N8Rk=");
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 putenv("APP_URL=https://{$host}");
