@@ -2928,11 +2928,23 @@ export default function CafeFinderV8(){
   const fetchCafes=useCallback(()=>{
     setLoadingCafes(true);
     authFetch("/api/cafes")
-      .then(r=>r.json())
-      .then(d=>{
-        if(d.cafes) setCafes(d.cafes);
+      .then(async r=>{
+          if (!r.ok) {
+              const text = await r.text();
+              alert("HTTP Error " + r.status + ": " + text.substring(0, 100));
+              throw new Error("HTTP Error");
+          }
+          return r.json();
       })
-      .catch(()=>{})
+      .then(d=>{
+        if(d.cafes) {
+            setCafes(d.cafes);
+            if (d.cafes.length === 0) alert("API returned 0 cafes (empty database)");
+        } else {
+            alert("API didn't return cafes array. Response: " + JSON.stringify(d).substring(0, 100));
+        }
+      })
+      .catch((e)=>{ alert("Fetch Catch Error: " + e.message); })
       .finally(()=>setLoadingCafes(false));
   },[]);
 
