@@ -31,6 +31,7 @@ putenv("LOG_CHANNEL=stderr"); // Stream logs to Vercel dashboard console
 putenv("CACHE_STORE=array");
 
 // Get the Laravel application instance and override storage path
+require __DIR__ . '/../vendor/autoload.php';
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 $app->useStoragePath($storagePath);
 
