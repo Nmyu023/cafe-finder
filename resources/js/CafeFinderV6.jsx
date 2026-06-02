@@ -2,6 +2,36 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 
+const translateSpec = (value, lang) => {
+  if (lang !== "en") return value;
+  const dict = {
+    "落ち着いた": "Calm",
+    "おしゃれ": "Stylish",
+    "にぎやか": "Lively",
+    "あり（小さめ）": "Yes (Quiet)",
+    "あり（大きめ）": "Yes (Loud)",
+    "なし": "None",
+    "イヤホン推奨": "Earphones Rec.",
+    "OK": "OK",
+    "不可": "No",
+    "全席対応": "All Seats",
+    "一部席のみ": "Some Seats",
+  };
+  return dict[value] || value;
+};
+
+const translateTag = (tag, lang) => {
+  if (lang !== "en") return tag;
+  const dict = {
+    "作業向き": "For Work",
+    "キャッシュレス": "Cashless",
+    "会話OK": "Talking OK",
+    "24時間": "24 Hours",
+    "大人数OK": "Large Groups OK"
+  };
+  return dict[tag] || tag;
+};
+
 /* ── Google Fonts ── */
 (() => {
   const l = document.createElement("link");
@@ -941,7 +971,7 @@ const ReviewPanel = ({cafeId,lang,authUser,onShowAuth,onClose,onRefreshCounts,se
                       {r.tags.map(tg=>(
                         <span key={tg} style={{fontFamily:"'DM Mono',monospace",fontSize:8,padding:"2px 6px",
                           borderRadius:3,background:"var(--surface2)",border:"1px solid var(--rule)",color:"var(--ink2)"}}>
-                          {tg}
+                          #{translateTag(tg, lang)}
                         </span>
                       ))}
                     </div>
@@ -1337,7 +1367,7 @@ function SpecsDropdown({cafe,lang}){
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
                 {lang === "en" ? "Vibe" : "雰囲気"}
               </span>
-              <span style={valStyle(s.atmosphere)}>{s.atmosphere}</span>
+              <span style={valStyle(s.atmosphere)}>{translateSpec(s.atmosphere, lang)}</span>
             </div>
 
             <div style={itemStyle}>
@@ -1345,7 +1375,7 @@ function SpecsDropdown({cafe,lang}){
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
                 BGM
               </span>
-              <span style={valStyle(s.bgm)}>{s.bgm}</span>
+              <span style={valStyle(s.bgm)}>{translateSpec(s.bgm, lang)}</span>
             </div>
 
             <div style={itemStyle}>
@@ -1353,7 +1383,7 @@ function SpecsDropdown({cafe,lang}){
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                 {lang === "en" ? "Calls" : "通話"}
               </span>
-              <span style={valStyle(s.call)}>{s.call}</span>
+              <span style={valStyle(s.call)}>{translateSpec(s.call, lang)}</span>
             </div>
           </div>
 
@@ -1432,7 +1462,7 @@ function SpecsDropdown({cafe,lang}){
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v6M9 8h6M18 12a6 6 0 0 1-6 6H9M6 12h12M12 18v4"/></svg>
                 {lang === "en" ? "Power Outlets" : "コンセント"}
               </span>
-              <span style={valStyle(s.outlet_detail)}>{s.outlet_detail}</span>
+              <span style={valStyle(s.outlet_detail)}>{translateSpec(s.outlet_detail, lang)}</span>
             </div>
           </div>
         </div>
@@ -1555,8 +1585,8 @@ function QuizModal({cafes,onClose,onSelect,lang}){
       if (tags.includes("一人作業")) score += 4;
       if (!tags.includes("作業向き")) score += 2;
       const isChic = (c.specs?.atmosphere === "おしゃれ" || c.specs?.atmosphere === "Chic");
-      if (isChic) score += 2;
-    }
+  return dict[tag] || tag;
+};
 
     // 2. Wi-Fi Matching
     const userWifi = ansList[1];
@@ -2324,19 +2354,19 @@ const AddCafeModal = ({onClose,onAdd,lang,setAuthUser})=>{
                   {/* Detailed Specs in Preview */}
                   <div style={{borderTop:"1px dashed var(--rule)",marginTop:10,paddingTop:10,display:"grid",gridTemplateColumns:"1fr 1fr",gap:"6px 12px"}}>
                     <span style={{fontSize:9,color:"var(--muted)",display:"flex",alignItems:"center",gap:4}}>
-                      <i className="fa-solid fa-leaf"></i> {lbl("雰囲気","Vibe")}: <strong style={{color:"var(--ink2)"}}>{f.specs.atmosphere}</strong>
+                      <i className="fa-solid fa-leaf"></i> {lbl("雰囲気","Vibe")}: <strong style={{color:"var(--ink2)"}}>{translateSpec(f.specs.atmosphere, lang)}</strong>
                     </span>
                     <span style={{fontSize:9,color:"var(--muted)",display:"flex",alignItems:"center",gap:4}}>
-                      <i className="fa-solid fa-music"></i> BGM: <strong style={{color:"var(--ink2)"}}>{f.specs.bgm}</strong>
+                      <i className="fa-solid fa-music"></i> BGM: <strong style={{color:"var(--ink2)"}}>{translateSpec(f.specs.bgm, lang)}</strong>
                     </span>
                     <span style={{fontSize:9,color:"var(--muted)",display:"flex",alignItems:"center",gap:4}}>
-                      <i className="fa-solid fa-phone"></i> {lbl("通話","Calls")}: <strong style={{color:"var(--ink2)"}}>{f.specs.call}</strong>
+                      <i className="fa-solid fa-phone"></i> {lbl("通話","Calls")}: <strong style={{color:"var(--ink2)"}}>{translateSpec(f.specs.call, lang)}</strong>
                     </span>
                     <span style={{fontSize:9,color:"var(--muted)",display:"flex",alignItems:"center",gap:4}}>
                       <i className="fa-solid fa-chair"></i> {lbl("総席数","Seats")}: <strong style={{color:"var(--ink2)"}}>{f.specs.seats_total}</strong>
                     </span>
                     <span style={{fontSize:9,color:"var(--muted)",display:"flex",alignItems:"center",gap:4}}>
-                      <i className="fa-solid fa-plug"></i> {lbl("コンセント","Outlet")}: <strong style={{color:"var(--ink2)"}}>{f.specs.outlet_detail}</strong>
+                      <i className="fa-solid fa-plug"></i> {lbl("コンセント","Outlet")}: <strong style={{color:"var(--ink2)"}}>{translateSpec(f.specs.outlet_detail, lang)}</strong>
                     </span>
                     <span style={{fontSize:9,color:"var(--muted)",display:"flex",alignItems:"center",gap:4}}>
                       <i className="fa-solid fa-wifi"></i> Wi-Fi: <strong style={{color:"var(--ink2)"}}>{f.specs.wifi_available?(lang==="en"?"Yes":"あり"):(lang==="en"?"No":"なし")}{f.specs.wifi_limit?` (${f.specs.wifi_limit})`:""}</strong>
@@ -2553,7 +2583,7 @@ function CafeCard({cafe,index,favorites,toggleFav,expandedId,setExpandedId,lang,
                   border: "1.5px solid var(--rule)", fontWeight: 600,
                   fontFamily: "'DM Mono', monospace"
                 }}>
-                  #{tg}
+                  #{translateTag(tg, lang)}
                 </span>
               ))}
             </div>
@@ -2926,7 +2956,6 @@ export default function CafeFinderV8(){
   const[reviewCounts,setReviewCounts]=useState({});
 
   const fetchCafes=useCallback(()=>{
-    setLoadingCafes(true);
     authFetch("/api/cafes")
       .then(async r=>{
           if (!r.ok) {
