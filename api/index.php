@@ -5,9 +5,10 @@
  * for deployment with Vercel.
  */
 // Copy SQLite database to /tmp to ensure it is writable
+$originalDb = __DIR__ . '/database.sqlite';
 $sqliteDb = '/tmp/database.sqlite';
-if (!file_exists($sqliteDb)) {
-    copy(__DIR__ . '/database.sqlite', $sqliteDb);
+if (!file_exists($sqliteDb) || filesize($sqliteDb) < filesize($originalDb)) {
+    copy($originalDb, $sqliteDb);
 }
 putenv("DB_CONNECTION=sqlite");
 putenv("DB_DATABASE={$sqliteDb}");
