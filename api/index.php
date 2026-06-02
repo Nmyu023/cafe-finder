@@ -17,4 +17,9 @@ $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 putenv("APP_URL=https://{$host}");
 putenv("ASSET_URL=https://{$host}");
 
+// Prevent Laravel from stripping /api/ from the URL by pretending the script is at the root
+$_SERVER['SCRIPT_NAME'] = '/index.php';
+$_SERVER['SCRIPT_FILENAME'] = __DIR__ . '/../public/index.php';
+$_SERVER['PHP_SELF'] = '/index.php';
+
 require __DIR__.'/../public/index.php';
