@@ -12,5 +12,8 @@ if (!file_exists($sqliteDb)) {
 putenv("DB_CONNECTION=sqlite");
 putenv("DB_DATABASE={$sqliteDb}");
 putenv("APP_KEY=base64:qWYGUAk5tcIeOfQIkpMUglLXmpN/qE6q8AMZ/M5N8Rk=");
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+putenv("APP_URL=https://{$host}");
+putenv("ASSET_URL=https://{$host}");
 
 require __DIR__.'/../public/index.php';
