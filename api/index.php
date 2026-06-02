@@ -7,7 +7,7 @@
 // Copy SQLite database to /tmp to ensure it is writable
 $sqliteDb = '/tmp/database.sqlite';
 if (!file_exists($sqliteDb)) {
-    copy(__DIR__ . '/../database/database.sqlite', $sqliteDb);
+    copy(__DIR__ . '/database.sqlite', $sqliteDb);
 }
 putenv("DB_CONNECTION=sqlite");
 putenv("DB_DATABASE={$sqliteDb}");
