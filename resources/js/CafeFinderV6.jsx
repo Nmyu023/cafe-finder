@@ -3040,7 +3040,7 @@ export default function CafeFinderV8(){
     <div style={{minHeight:"100vh",background:"var(--base)",fontFamily:"'Noto Serif JP',serif",transition:"background .3s"}}>
       {showQuiz&&<QuizModal cafes={cafes} lang={lang} onClose={()=>setShowQuiz(false)} onSelect={handleQuizSelect}/>}
       {showAddCafe&&<AddCafeModal lang={lang} onClose={()=>setShowAddCafe(false)} onAdd={handleAddCafe} setAuthUser={setAuthUser}/>}
-      {showAuth&&<AuthModal initialMode={showAuth} lang={lang} onClose={()=>setShowAuth(null)} onLogin={(u)=>{if(u.email==='admin@cafefinder.com'){window.location.href='/admin';return;}setAuthUser(u);setShowAuth(null);}}/>}
+      {showAuth&&<AuthModal initialMode={showAuth} lang={lang} onClose={()=>setShowAuth(null)} onLogin={(u)=>{if(u.email==='admin@cafefinder.com'){const appUrl = document.querySelector('meta[name="app-url"]')?.content || 'http://localhost:8000'; window.location.href=`${appUrl}/admin`;return;}setAuthUser(u);setShowAuth(null);}}/>}
 
       {/* HEADER */}
       <header style={{borderBottom:"1px solid var(--rule)",padding:"12px 20px 10px",
@@ -3236,7 +3236,10 @@ export default function CafeFinderV8(){
             
             {/* 管理者用 Adminページ遷移ボタン */}
             {authUser && authUser.email === 'admin@cafefinder.com' && (
-              <button onClick={() => window.location.href='/admin'} 
+              <button onClick={() => {
+                const appUrl = document.querySelector('meta[name="app-url"]')?.content || 'http://localhost:8000';
+                window.location.href=`${appUrl}/admin`;
+              }} 
                       style={{padding:"8px 12px", background:"var(--ink)", color:"var(--base)", border:"none", borderRadius:3, fontFamily:"'DM Mono',monospace", fontSize:"clamp(11px,2vw,13px)", cursor:"pointer", flexShrink:0, transition:"opacity .15s"}}
                       onMouseOver={e=>e.currentTarget.style.opacity=0.8}
                       onMouseOut={e=>e.currentTarget.style.opacity=1}
