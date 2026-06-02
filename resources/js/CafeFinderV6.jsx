@@ -3346,7 +3346,6 @@ export default function CafeFinderV8(){
         {viewMode==="list"&&(
           filtered.length===0?(
             <div style={{textAlign:"center",padding:"56px 0",color:"var(--muted)"}}>
-              <div style={{fontSize:32,marginBottom:10}}><i className="fa-solid fa-mug-hot"></i></div>
               <p style={{fontFamily:"'Noto Serif JP',serif",fontSize:14}}>{t.noResult}</p>
             </div>
           ):( 
