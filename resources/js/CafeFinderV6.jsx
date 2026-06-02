@@ -3371,12 +3371,15 @@ export default function CafeFinderV8(){
           </div>
           <div style={{border:"1px solid var(--ink)",borderRadius:3,padding:"20px 20px 18px",
                        display:"flex",gap:16,alignItems:"flex-start",background:"var(--surface)"}}>
-            <div style={{width:48,height:48,borderRadius:"50%",flexShrink:0,
-                         background:"linear-gradient(135deg,#2ABFBF,#1B4F8A)",
-                         display:"flex",alignItems:"center",justifyContent:"center",
-                         fontSize:18,color:"white",fontWeight:700}}>N</div>
+            <div style={{width:48,height:48,flexShrink:0,position:"relative",
+                         display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <i className="fa-solid fa-mug-hot" style={{fontSize:42,color:"var(--teal)"}}></i>
+              <span style={{position:"absolute",color:"var(--base)",fontSize:18,fontWeight:800,
+                           top:"50%",left:"43%",transform:"translate(-50%, -46%)",
+                           fontFamily:"'DM Mono',monospace"}}>N</span>
+            </div>
             <div style={{flex:1}}>
-              <p style={{fontFamily:"'Noto Serif JP',serif",fontSize:14,fontWeight:700,color:"var(--ink)",marginBottom:5}}>Nissy</p>
+              <p style={{fontFamily:"'Noto Serif JP',serif",fontSize:14,fontWeight:700,color:"var(--ink)",marginBottom:5}}>Nish</p>
               {lang==="ja"
                 ?<p style={{fontFamily:"'Noto Serif JP',serif",fontSize:12,fontWeight:300,color:"var(--ink)",lineHeight:1.8}}>
                    セブ島でITと英語を学ぶ23歳。「自習室以外に、もっと快適に集中できる場所がほしい」という自身の切実な思いから、ITパーク内のカフェを1軒ずつ足で巡り、独自の作業カフェリストを作成しました。ここが、あなたの生産性を高める「最高の居場所」を見つけるきっかけになれば嬉しいです。
@@ -3415,7 +3418,7 @@ export default function CafeFinderV8(){
         {/* Copyright */}
         <div style={{marginTop:8}}>
           <p style={{fontFamily:"'DM Mono',monospace",fontSize:10,color:"var(--muted)",letterSpacing:"1px", margin:"0 0 6px 0"}}>
-            &copy; 2026 Cafe Finder by Nissy. All Rights Reserved.
+            &copy; 2026 Cafe Finder by Nish. All Rights Reserved.
           </p>
           <p style={{fontFamily:"'DM Mono',monospace",fontSize:9,color:"var(--muted)",letterSpacing:"1px", margin:0}}>
             {t.footerNote}
