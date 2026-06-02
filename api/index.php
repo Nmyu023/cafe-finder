@@ -24,7 +24,18 @@ foreach ($storageDirs as $dir) {
     }
 }
 
+// Copy SQLite database to /tmp to ensure it is writable
+$sqliteDb = '/tmp/database.sqlite';
+if (!file_exists($sqliteDb)) {
+    copy(__DIR__ . '/../database/database.sqlite', $sqliteDb);
+}
+
 // Set temporary configuration environment variables for Vercel
+putenv("APP_KEY=base64:qWYGUAk5tcIeOfQIkpMUglLXmpN/qE6q8AMZ/M5N8Rk=");
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+putenv("APP_URL=https://{$host}");
+putenv("DB_CONNECTION=sqlite");
+putenv("DB_DATABASE={$sqliteDb}");
 putenv("VIEW_COMPILED_PATH={$storagePath}/framework/views");
 putenv("SESSION_DRIVER=cookie"); // Use client cookie session as Vercel has no persistent storage
 putenv("LOG_CHANNEL=stderr"); // Stream logs to Vercel dashboard console
