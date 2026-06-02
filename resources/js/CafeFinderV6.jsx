@@ -560,7 +560,7 @@ const ReviewPanel = ({cafeId,lang,authUser,onShowAuth,onClose,onRefreshCounts,se
   const[editingReview,setEditingReview]=useState(null);
 
   useEffect(()=>{
-    fetch(`/api/reviews/${cafeId}`).then(r=>r.json()).then(d=>{
+    authFetch(`/api/reviews/${cafeId}`).then(r=>r.json()).then(d=>{
       setReviews(d.reviews||[]);
     }).catch(()=>{}).finally(()=>setLoaded(true));
   },[cafeId]);
@@ -2927,7 +2927,7 @@ export default function CafeFinderV8(){
 
   const fetchCafes=useCallback(()=>{
     setLoadingCafes(true);
-    fetch("/api/cafes")
+    authFetch("/api/cafes")
       .then(r=>r.json())
       .then(d=>{
         if(d.cafes) setCafes(d.cafes);
@@ -2938,7 +2938,7 @@ export default function CafeFinderV8(){
 
   // レビュー件数一括取得
   const fetchReviewCounts=useCallback(()=>{
-    fetch("/api/review-counts").then(r=>r.json()).then(d=>setReviewCounts(d.counts||{})).catch(()=>{});
+    authFetch("/api/review-counts").then(r=>r.json()).then(d=>setReviewCounts(d.counts||{})).catch(()=>{});
   },[]);
 
   // 認証チェック + カフェデータ + レビュー件数取得
