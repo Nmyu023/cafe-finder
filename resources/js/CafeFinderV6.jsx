@@ -3085,10 +3085,11 @@ export default function CafeFinderV8(){
           <div className="header-top-row" style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12,marginBottom:10}}>
             {/* 左: タイトル */}
             <div onClick={handleHomeClick} style={{flexShrink:0, cursor:"pointer"}} className="header-title-container" title={lang==="en"?"Go to home":"ホームに戻る"}>
-              <h1 style={{fontFamily:"'Noto Serif JP',serif",fontSize:"clamp(16px,3.5vw,26px)",fontWeight:700,color:"var(--ink)",letterSpacing:"-.5px",lineHeight:1.1, transition: "opacity 0.15s"}}
+              <h1 style={{fontFamily:"'Noto Serif JP',serif",fontSize:"clamp(16px,3.5vw,26px)",fontWeight:700,color:"var(--ink)",letterSpacing:"-.5px",lineHeight:1.1, transition: "opacity 0.15s", display:"flex", alignItems:"center", gap: 8}}
                   onMouseEnter={e => { e.currentTarget.style.opacity = 0.8; }}
                   onMouseLeave={e => { e.currentTarget.style.opacity = 1; }}>
-                IT Park Cafe <span style={{color:"var(--teal)"}}>Finder</span>
+                <i className="fa-solid fa-mug-hot" style={{color:"var(--teal)", fontSize:"0.9em"}}></i>
+                <span>IT Park Cafe <span style={{color:"var(--teal)"}}>Finder</span></span>
               </h1>
             </div>
 
